@@ -35,6 +35,8 @@ def apply_watermark(input_video: str, logo: str, output_video: str, logo_type: s
                 '-filter_complex', '[1:v]format=rgba,colorchannelmixer=aa=1.0[wm];[wm][0:v]scale2ref[wm_scaled][base];[base][wm_scaled]overlay=0:0:shortest=1',
                 '-c:v', 'libx264',
                 '-preset', 'fast',
+                '-threads', '1',
+                '-bufsize', '2000k',
                 '-c:a', 'copy',
                 output_video
             ]
@@ -48,6 +50,8 @@ def apply_watermark(input_video: str, logo: str, output_video: str, logo_type: s
                 '-filter_complex', '[1:v]format=rgba,colorchannelmixer=aa=1.0[logo];[logo][0:v]scale2ref[logo_scaled][base];[base][logo_scaled]overlay=0:0',
                 '-c:v', 'libx264',
                 '-preset', 'fast',
+                '-threads', '1',
+                '-bufsize', '2000k',
                 '-c:a', 'copy',
                 output_video
             ]

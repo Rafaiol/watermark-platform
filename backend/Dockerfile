@@ -20,5 +20,5 @@ COPY backend/ .
 # Expose port the app runs on
 EXPOSE 8000
 
-# Start FastAPI application with uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start FastAPI application with uvicorn and constrain workers
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

@@ -11,8 +11,8 @@ type Message = {
   timestamp: Date;
 };
 
-// Assuming the fastAPI backend runs locally on this port
-const API_URL = 'http://localhost:8000';
+// Assuming the fastAPI backend runs locally on this port or uses an env variable in production
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 function App() {
   const [messages, setMessages] = useState<Message[]>([

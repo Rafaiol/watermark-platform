@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: watermark-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PORT
+        value: 8000
+    plan: free # Note: free instances spin down after inactivity

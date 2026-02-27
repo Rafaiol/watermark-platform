@@ -76,6 +76,7 @@ function App() {
     try {
       const response = await axios.post(`${API_URL}/watermark`, formData, {
         responseType: 'blob', // Important for receiving the video file back
+        timeout: 600000, // 10 minutes — large videos need time to process on the server
       });
 
       // Create a URL for the downloaded blob

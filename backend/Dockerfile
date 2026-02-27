@@ -9,16 +9,16 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements completely
-COPY backend/requirements.txt .
+COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the backend source code
-COPY backend/ .
+COPY . .
 
 # Expose port the app runs on
 EXPOSE 8000
 
-# Start FastAPI application with uvicorn and constrain workers
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+# Start FastAPI application with uvicorn and constrain workers. Use $PORT provided by Railway/Render
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]

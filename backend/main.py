@@ -17,11 +17,13 @@ logger = logging.getLogger(__name__)
 TEMP_DIR = "temp_files"
 OUTPUT_DIR = "output_files"
 
+# Ensure directories exist before mounting StaticFiles
+os.makedirs(TEMP_DIR, exist_ok=True)
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    os.makedirs(TEMP_DIR, exist_ok=True)
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
     logger.info("Watermark API started. Directories ready.")
     yield
     for d in [TEMP_DIR]:

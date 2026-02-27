@@ -74,18 +74,18 @@ function App() {
     formData.append('video', video);
 
     try {
+      // Step 1: Send the files for processing (response is now JSON with a download URL)
       const response = await axios.post(`${API_URL}/watermark`, formData, {
-        responseType: 'blob', // Important for receiving the video file back
         timeout: 600000, // 10 minutes — large videos need time to process on the server
       });
 
-      // Create a URL for the downloaded blob
-      const url = window.URL.createObjectURL(new Blob([response.data]));
+      // Step 2: Build the full download URL from the API response
+      const downloadUrl = `${API_URL}${response.data.download_url}`;
 
       addMessage({
         sender: "bot",
         text: "✅ Video processing fully complete! You can download your watermarked video below.",
-        videoUrl: url
+        videoUrl: downloadUrl
       });
 
     } catch (error) {
